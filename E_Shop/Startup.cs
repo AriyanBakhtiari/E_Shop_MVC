@@ -1,13 +1,14 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using E_Shop.Data;
 
 namespace E_Shop
 {
@@ -16,6 +17,7 @@ namespace E_Shop
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -24,6 +26,15 @@ namespace E_Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //string database connection
+            #region Db Context
+            services.AddDbContext<EShopContext>(options =>
+            {
+                options.UseSqlServer("Data Source =.; Initial Catalog = EShopDatabse; Integrated Security = true");
+            });
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
