@@ -53,28 +53,44 @@ namespace E_Shop.Data
                 Id = 2,
                 Price = 15000,
                 QuantityInStock = 10,
+            }); 
+            modelBuilder.Entity<Item>().HasData(new Item
+            {
+                Id = 3,
+                Price = 45000,
+                QuantityInStock = 24,
             });
+
 
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 1,
                 ItemId = 1,
-                Name = "تیشرت Adidas",
-                Description = "تیشرت اصل شرکت Adidas",
+                Name = "تیشرت ورزشی مردانه ",
+                Description = "تیشرت ورزشی مردانه شرکت متفرقه",
             });
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 2,
                 ItemId = 2,
-                Name = "پیرهن چهار خونه",
-                Description = "پیرهن چهار خوبه قرمز شرکت ایکس",
+                Name = "پیراهن مردانه",
+                Description = "پیرهن مردانه رسمی ",
+            });
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                Id = 3,
+                ItemId = 3,
+                Name = "کلاه مردانه",
+                Description = "کلاس ورزشی مردانه",
             });
 
             modelBuilder.Entity<CategoryToProduct>().HasData(
             new CategoryToProduct { ProductId = 1, CategoryId = 1, },
             new CategoryToProduct { ProductId = 1, CategoryId = 2, },
             new CategoryToProduct { ProductId = 2, CategoryId = 1, },
-            new CategoryToProduct { ProductId = 2, CategoryId = 2, });
+            new CategoryToProduct { ProductId = 2, CategoryId = 2, },
+            new CategoryToProduct { ProductId = 3, CategoryId = 1, },
+            new CategoryToProduct { ProductId = 3, CategoryId = 2, });
 
             #endregion
 

@@ -1,5 +1,7 @@
-﻿using E_Shop.Models;
+﻿using E_Shop.Data;
+using E_Shop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,22 +13,53 @@ namespace E_Shop.Controllers
 {
     public class HomeController : Controller
     {
+        private EShopContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, EShopContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var product = _context.Products
+                .ToList();
+            return View(product);
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
+
+        public IActionResult Details(int id) {
+            var products = _context.Products
+                .Include(p => p.Item)
+                .SingleOrDefault(p => p.Id == id);
+            var category = _context.Products
+                .Where(i => i.Id == id)
+                .SelectMany(c => c.CategoryToProduct)
+                .Select(ca => ca.Category)
+                .ToList();
+            var detailview = new DetailModelView()
+            {
+                Product = products,
+                Categories = category
+            };
+            if (products == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(detailview);
+            }
+
+
+        }
+
 
         [Route("/ContactUs")]
         public IActionResult ContactUs()

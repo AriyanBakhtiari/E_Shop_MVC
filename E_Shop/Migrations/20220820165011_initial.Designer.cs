@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Shop.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    [Migration("20220820145409_UpdateSeedData")]
-    partial class UpdateSeedData
+    [Migration("20220820165011_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,6 +86,16 @@ namespace E_Shop.Migrations
                         {
                             CategoryId = 2,
                             ProductId = 2
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            ProductId = 3
                         });
                 });
 
@@ -118,6 +128,12 @@ namespace E_Shop.Migrations
                             Id = 2,
                             Price = 15000m,
                             QuantityInStock = 10
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Price = 45000m,
+                            QuantityInStock = 24
                         });
                 });
 
@@ -148,16 +164,23 @@ namespace E_Shop.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "تیشرت اصل شرکت Adidas",
+                            Description = "تیشرت ورزشی مردانه شرکت متفرقه",
                             ItemId = 1,
-                            Name = "تیشرت Adidas"
+                            Name = "تیشرت ورزشی مردانه "
                         },
                         new
                         {
                             Id = 2,
-                            Description = "پیرهن چهار خوبه قرمز شرکت ایکس",
+                            Description = "پیرهن مردانه رسمی ",
                             ItemId = 2,
-                            Name = "پیرهن چهار خونه"
+                            Name = "پیرهن مردانه"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "شلوار جین خوش دوخت ترکیه ای",
+                            ItemId = 3,
+                            Name = "شلوار جین مدل متفرقه"
                         });
                 });
 

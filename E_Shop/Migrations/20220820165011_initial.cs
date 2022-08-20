@@ -2,10 +2,24 @@
 
 namespace E_Shop.Migrations
 {
-    public partial class AddSomeTable : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
@@ -13,7 +27,7 @@ namespace E_Shop.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuantityInStock = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
+                    Price = table.Column<decimal>(type: "Money", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,6 +79,53 @@ namespace E_Shop.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "محصولات ورزشی", "ورزشی" },
+                    { 2, "محصولات مزدانه", "مردانه" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "Id", "Price", "QuantityInStock" },
+                values: new object[,]
+                {
+                    { 1, 5000m, 1 },
+                    { 2, 15000m, 10 },
+                    { 3, 45000m, 24 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "ItemId", "Name" },
+                values: new object[] { 1, "تیشرت ورزشی مردانه شرکت متفرقه", 1, "تیشرت ورزشی مردانه " });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "ItemId", "Name" },
+                values: new object[] { 2, "پیرهن مردانه رسمی ", 2, "پیرهن مردانه" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "ItemId", "Name" },
+                values: new object[] { 3, "شلوار جین خوش دوخت ترکیه ای", 3, "شلوار جین مدل متفرقه" });
+
+            migrationBuilder.InsertData(
+                table: "CategoryToProducts",
+                columns: new[] { "CategoryId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 1, 2 },
+                    { 2, 2 },
+                    { 1, 3 },
+                    { 2, 3 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryToProducts_ProductId",
                 table: "CategoryToProducts",
@@ -81,6 +142,9 @@ namespace E_Shop.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CategoryToProducts");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Products");
