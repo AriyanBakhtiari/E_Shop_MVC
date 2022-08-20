@@ -3,14 +3,16 @@ using E_Shop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Shop.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    partial class EShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220819084003_Add Some Table")]
+    partial class AddSomeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,14 +41,8 @@ namespace E_Shop.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "محصولات ورزشی",
-                            Name = "ورزشی"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "محصولات مزدانه",
-                            Name = "مردانه"
+                            Description = "Test",
+                            Name = "Test"
                         });
                 });
 
@@ -63,28 +59,6 @@ namespace E_Shop.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CategoryToProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CategoryId = 1,
-                            ProductId = 2
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            ProductId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_Shop.Models.Item", b =>
@@ -95,7 +69,7 @@ namespace E_Shop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("Money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");
@@ -103,20 +77,6 @@ namespace E_Shop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Price = 5000m,
-                            QuantityInStock = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Price = 15000m,
-                            QuantityInStock = 10
-                        });
                 });
 
             modelBuilder.Entity("E_Shop.Models.Product", b =>
@@ -141,22 +101,6 @@ namespace E_Shop.Migrations
                         .IsUnique();
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "تیشرت اصل شرکت Adidas",
-                            ItemId = 1,
-                            Name = "تیشرت Adidas"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "پیرهن چهار خوبه قرمز شرکت ایکس",
-                            ItemId = 2,
-                            Name = "پیرهن چهار خونه"
-                        });
                 });
 
             modelBuilder.Entity("E_Shop.Models.CategoryToProduct", b =>
