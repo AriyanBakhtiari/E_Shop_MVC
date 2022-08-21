@@ -11,21 +11,22 @@
             <th>قیمت</th>
             <th></th>
         </tr>
-        <tbody>
-            @foreach (var item in Model.CartItems)
-            {
-                <tr>
-                    <th>@item.Item.Product.Name</th>
-                    <th>@item.Quantity</th>
-                    <th>@item.TotalPrice()</th>
-                    <th>
-                        <a asp-action="DeleteCart" asp-controller="Home" asp-route-itemId="@item.Item.Id">حذف</a>
-                    </th>
-                </tr>
-            }
-        </tbody>
-
     </thead>
+    <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr>
+                <td>@item.Item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.TotalPrice()</td>
+                <td>
+                    <a asp-action="RemoveCart" asp-controller="home" asp-route-itemId="@item.Item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
 
 </table>
 
