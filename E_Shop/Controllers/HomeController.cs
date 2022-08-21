@@ -15,11 +15,13 @@ namespace E_Shop.Controllers
     {
         private EShopContext _context;
         private readonly ILogger<HomeController> _logger;
+        private  Cart _cart ;
 
-        public HomeController(ILogger<HomeController> logger, EShopContext context)
+        public HomeController(ILogger<HomeController> logger, EShopContext context , Cart cart)
         {
             _logger = logger;
             _context = context;
+            _cart = cart;
         }
 
         public IActionResult Index()
@@ -58,6 +60,41 @@ namespace E_Shop.Controllers
             }
 
 
+        }
+
+
+        public IActionResult AddToCart(int itemId)
+        {
+            var product = _context.Products.Include(p => p.Item).SingleOrDefault(p => p.ItemId == itemId);
+            
+            if (product != null)
+            {
+                var cartItem = new CartItem()
+                {
+                    Item = product.Item,
+                    Quantity = 1
+                };
+                _cart.addItem(cartItem);
+            }
+            return RedirectToAction("CartView");
+        }
+        
+        public IActionResult CartView()
+        {
+            var cartview = new CartViewModel()
+            {
+                CartItems = _cart.CartItems,
+                OrderTotal = _cart.CartItems.Sum(p => p.TotalPrice()),
+
+            };
+
+            return View(cartview);
+        }
+
+        public IActionResult DeleteCart(int itemId)
+        {
+            _cart.removeItem(itemId);
+            return RedirectToAction("CartView");
         }
 
 
