@@ -1,0 +1,17 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = ViewData["CategoryName"];
+}
+
+<h1> محصولات @ViewData["CategoryName"]</h1>
+<hr />
+
+<ul>
+   <div class="row">
+    @foreach (var item in Model)
+    {
+        <partial name="_CartProduct" model="item"/>
+    }
+    </div>
+</ul>
+
