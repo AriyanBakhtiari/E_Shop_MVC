@@ -1,0 +1,17 @@
+﻿@using E_Shop.Repository
+@inject IGroupRepository grouprepository
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        دسته بندی
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @foreach (var item in grouprepository.GetAllCategory())
+        {
+            <a class="dropdown-item" href="/category/@item.Id/@item.Name">@item.Name</a>
+        }
+    </div>
+</li>
+
+
+

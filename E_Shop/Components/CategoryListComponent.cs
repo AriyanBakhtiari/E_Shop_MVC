@@ -3,28 +3,23 @@ using E_Shop.Data;
 using System.Threading.Tasks;
 using System.Linq;
 using E_Shop.Models;
+using E_Shop.Repository;
 
 namespace E_Shop.Components
 {
     public class CategoryListComponent : ViewComponent
     {
-        private EShopContext _context;
+        private IGroupRepository _groupRepository;
 
-        public CategoryListComponent(EShopContext context)
+        public CategoryListComponent(IGroupRepository groupRepository)
         {
-            _context = context;
+            _groupRepository = groupRepository;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var category = _context.Categories.Select(n => new ShowGroupViewModel
-            {
-                GroupName = n.Name,
-                GroupId = n.Id,
-                ProductCount = _context.CategoryToProducts.Count(c => c.CategoryId == n.Id),
-            }).ToList();
 
-            return View("/Views/Component/CategoryListComponentView.cshtml", category);
+            return View("/Views/Component/CategoryListComponentView.cshtml", _groupRepository.ShowCategoryView());
         }
     }
 }

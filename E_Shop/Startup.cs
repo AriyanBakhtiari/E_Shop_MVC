@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using E_Shop.Data;
+using E_Shop.Repository;
 
 namespace E_Shop
 {
@@ -34,6 +35,10 @@ namespace E_Shop
                 options.UseSqlServer("Data Source =.; Initial Catalog = EShopDatabse; Integrated Security = true");
             });
 
+            #endregion
+
+            #region IOC(Injection Of Control)
+            services.AddScoped<IGroupRepository, GroupRepository>();
             #endregion
         }
 
