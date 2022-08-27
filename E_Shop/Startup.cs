@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using E_Shop.Data;
 using E_Shop.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace E_Shop
 {
@@ -39,6 +40,18 @@ namespace E_Shop
 
             #region IOC(Injection Of Control)
             services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            #endregion
+
+            #region Authentication Service
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                option =>
+                {
+                    option.LoginPath = "/Account/Login";
+                    option.LogoutPath = "/Account/Logout";
+                    option.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                });
             #endregion
         }
 
@@ -59,6 +72,9 @@ namespace E_Shop
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 

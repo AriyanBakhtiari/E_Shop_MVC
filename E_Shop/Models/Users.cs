@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace E_Shop.Models
@@ -17,5 +18,9 @@ namespace E_Shop.Models
         public DateTime RegisterDate { get; set; }
         public bool IsAdmin { get; set; }
 
+
+
+        
+        public List<Orders> Orders { get; set; }
     }
 }

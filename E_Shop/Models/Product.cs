@@ -13,5 +13,6 @@ namespace E_Shop.Models
 
         public List<CategoryToProduct> CategoryToProduct { get; set; }
         public Item Item { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
     }
 }

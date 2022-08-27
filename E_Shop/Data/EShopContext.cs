@@ -14,6 +14,8 @@ namespace E_Shop.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Orders> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

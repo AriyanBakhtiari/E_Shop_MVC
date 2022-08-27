@@ -1,9 +1,12 @@
-﻿@model CartViewModel
+﻿@model Orders
 @{
     ViewData["Title"] = "CartView";
 }
 
-<table class="table table-striped">
+
+@if(Model != null)
+{
+        <table class="table table-striped">
     <thead class=" thead-dark">
         <tr>
             <th>محصول</th>
@@ -13,14 +16,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.CartItems)
+        @foreach (var item in Model.OrderDatail)
         {
             <tr>
-                <td>@item.Item.Product.Name</td>
-                <td>@item.Quantity</td>
-                <td>@item.TotalPrice()</td>
+                <td>@item.Product.Name</td>
+                <td>@item.Count</td>
+                <td>@(item.Price * item.Count)</td>
                 <td>
-                    <a asp-action="RemoveCart" asp-controller="home" asp-route-itemId="@item.Item.Id">حذف</a>
+                    <a asp-action="DeleteCart" asp-controller="home"  asp-route-OrderDetailId="@item.DetailId">حذف</a>
                 </td>
             </tr>
         }
@@ -30,5 +33,15 @@
 
 </table>
 
-<h5>جمع کل : @Model.OrderTotal</h5>
+<h5>جمع کل : @Model.OrderDatail.Sum(s=> s.Count * s.Price)</h5>
+
+}
+else
+{
+
+<div class=" alert-danger"> سبد خرید خالی است</div> 
+}
+
+
+
 

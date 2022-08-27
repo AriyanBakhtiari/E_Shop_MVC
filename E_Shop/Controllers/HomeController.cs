@@ -1,5 +1,6 @@
 ﻿using E_Shop.Data;
 using E_Shop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace E_Shop.Controllers
@@ -15,7 +17,7 @@ namespace E_Shop.Controllers
     {
         private EShopContext _context;
         private readonly ILogger<HomeController> _logger;
-        private static Cart _cart = new Cart();
+        
 
         public HomeController(ILogger<HomeController> logger, EShopContext context)
         {
@@ -35,7 +37,8 @@ namespace E_Shop.Controllers
             return View();
         }
 
-        public IActionResult Details(int id) {
+        public IActionResult Details(int id)
+        {
             var products = _context.Products
                 .Include(p => p.Item)
                 .SingleOrDefault(p => p.Id == id);
@@ -61,37 +64,89 @@ namespace E_Shop.Controllers
 
         }
 
-
+        [Authorize]
         public IActionResult AddToCart(int itemId)
         {
             var product = _context.Products.Include(p => p.Item).SingleOrDefault(p => p.ItemId == itemId);
             if (product != null)
             {
-                var cartItem = new CartItem()
+                var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+                var order = _context.Orders.FirstOrDefault(o => o.UserId == userId && !o.IsFinaly);
+                if (order != null)
                 {
-                    Item = product.Item,
-                    Quantity = 1
-                };
-                _cart.addItem(cartItem);
+                    var orderdetail = _context.OrderDetails
+                         .FirstOrDefault(o => o.OrderId == order.OrderId && o.ProductId == product.Id);
+                    if (orderdetail != null)
+                    {
+                        orderdetail.Count += 1;
+                    }
+                    else
+                    {
+                        _context.OrderDetails.Add(new OrderDetail
+                        {
+                            OrderId = order.OrderId,
+                            ProductId = product.Id,
+                            Price = product.Item.Price,
+                            Count = 1,
+                        });
+                    }
+                }
+
+                else
+                {
+
+                    order = new Orders()
+                    {
+                        UserId = userId,
+                        CreateDate = DateTime.Now,
+                        IsFinaly = false
+                    };
+
+                    _context.Orders.Add(order);
+
+                    _context.SaveChanges();
+
+                    _context.OrderDetails.Add(new OrderDetail
+                    {
+                        OrderId = order.OrderId,
+                        ProductId = product.Id,
+                        Price = product.Item.Price,
+                        Count = 1,
+                    });
+
+                }
+                _context.SaveChanges();
+
             }
             return RedirectToAction("CartView");
         }
-        
+
+
+
+
         public IActionResult CartView()
         {
-            var cartview = new CartViewModel()
-            {
-                CartItems = _cart.CartItems,
-                OrderTotal = _cart.CartItems.Sum(p => p.TotalPrice())
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+            var order = _context.Orders.Where(o => o.UserId == userId && !o.IsFinaly)
+                .Include(o => o.OrderDatail)
+                .ThenInclude(o => o.Product).FirstOrDefault();
 
-            };
-
-            return View(cartview);
+            return View(order);
         }
-
-        public IActionResult DeleteCart(int itemId)
+        [Authorize]
+        public IActionResult DeleteCart(int OrderDetailId)
         {
-            _cart.removeItem(itemId);
+            var orderdetail = _context.OrderDetails.Find(OrderDetailId);
+            if(orderdetail.Count == 1 )
+            {
+                _context.OrderDetails.Remove(orderdetail);
+            }
+            else
+            {
+                orderdetail.Count -= 1;
+            }
+            
+            _context.SaveChanges();
             return RedirectToAction("CartView");
         }
 

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,26 +25,45 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
                         </li>
                         <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CartView">سبد خرید</a>
+                            </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">درباره ما</a>
                         </li>
-                        <partial name="_Category"/>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="register">ثبت نام</a>
-                        </li>
+                        <partial name="_Category" />
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" >@User.Identity.Name خوش آمدید.</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="Logout">خروج از حساب </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="register">ثبت نام</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="Login">ورود</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-       <div class="row">
-           <div class="col-md-3">
-               @await Component.InvokeAsync("CategoryListComponent")
-           </div>
-           <div class="col-md-9">
-               @RenderBody()
-           </div>
-       </div>
+        <div class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("CategoryListComponent")
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
