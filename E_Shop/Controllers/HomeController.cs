@@ -120,10 +120,7 @@ namespace E_Shop.Controllers
             }
             return RedirectToAction("CartView");
         }
-
-
-
-
+        [Authorize]
         public IActionResult CartView()
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());

@@ -28,6 +28,7 @@ namespace E_Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             //string database connection
             #region Db Context
@@ -80,6 +81,7 @@ namespace E_Shop
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

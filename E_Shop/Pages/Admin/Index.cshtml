@@ -1,0 +1,41 @@
+﻿@page
+@model E_Shop.Pages.Admin.IndexModel
+@{
+}
+
+
+<body>
+    <h1>لیست کالا</h1>
+    <hr />
+    <a asp-page="Add" class="button" style="vertical-align:middle"><span>افزودن کالا</span></a>
+    <table>
+        <thead>
+            <tr>
+                <th>عکس</th>
+                <th>نام</th>
+                <th>قیمت</th>
+                <th>دستورات</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+
+
+                <tr>
+                    <td> <img src="/Images/@(item.Id).jpg" height="70" width="70" /> </td>
+                    <td>@item.Name</td>
+                    <td>@item.Item.Price</td>
+                    <td>
+                        <a asp-page="">ویرایش</a> 
+                        <a asp-page=""> حذف </a>
+
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
