@@ -8,6 +8,12 @@
 <h4>ورود به حساب کاربری</h4>
 <hr />
 <div class="row">
+    @if (User.Identity.IsAuthenticated)
+        {
+            <div class="alert alert-danger">
+                شما دسترسی ندارید
+            </div>
+        }
     <div class="col-md-12">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

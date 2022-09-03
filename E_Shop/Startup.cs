@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using E_Shop.Data;
 using E_Shop.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace E_Shop
 {
@@ -76,9 +77,25 @@ namespace E_Shop
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseAuthorization();
 
+            app.Use(async (context, next) =>
+            {
+                
+                if (context.Request.Path.StartsWithSegments("/Admin"))
+                {
+                    if (!context.User.Identity.IsAuthenticated)
+                    {
+                        context.Response.Redirect("/Account/Login");
+                    }
+                    else if (!bool.Parse(context.User.FindFirstValue("IsAdmin")))
+                    {
+                        context.Response.Redirect("/Account/Login");
+                    }
+                }
+                await next.Invoke();
+                
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
@@ -87,5 +104,6 @@ namespace E_Shop
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+        
     }
 }

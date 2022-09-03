@@ -72,6 +72,7 @@ namespace E_Shop.Controllers
             {
                 new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim("IsAdmin", user.IsAdmin.ToString()),
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
