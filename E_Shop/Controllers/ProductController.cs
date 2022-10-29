@@ -21,6 +21,7 @@ namespace E_Shop.Controllers
             var Producs = _context.CategoryToProducts
                 .Where(c => c.CategoryId == id)
                 .Include(c => c.Product)
+                .Include(i => i.Product.Item)
                 .Select(c => c.Product)
                 .ToList();
 

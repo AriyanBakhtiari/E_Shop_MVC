@@ -11,56 +11,59 @@
     @*<link rel="stylesheet" href="~/css/site.css" />*@
 </head>
 <body class="rtl" style="font-family : sahel,sans-serif;">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
+    <header class="sticky-top ">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  navbar-dark bg-dark  border-bottom box-shadow mb-3 ">
+            <div class="container-fluid ">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ژاتیس شاپ</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
                         </li>
                         <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CartView">سبد خرید</a>
-                            </li>
+
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="CartView">
+                                    سبد خرید <span class="badge badge-light">
+                                        <partial name="_Ordersbutton" />
+                                    </span>
+                                </a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">درباره ما</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">درباره ما</a>
                         </li>
                         <partial name="_Category" />
-
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" >@User.Identity.Name خوش آمدید.</a>
+                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="Logout">خروج از حساب </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="Logout">خروج از حساب </a>
+                                <partial name="_Wallet" />
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="register">ثبت نام</a>
+                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="register">ثبت نام</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="account" asp-action="Login">ورود</a>
+                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="Login">ورود</a>
                             </li>
+
                         }
                     </ul>
+
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                @await Component.InvokeAsync("CategoryListComponent")
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-12">
                 @RenderBody()
             </div>
         </div>

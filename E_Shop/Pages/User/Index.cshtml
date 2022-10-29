@@ -1,8 +1,9 @@
 ﻿@page
-@model E_Shop.Pages.Admin.ManageUsers.IndexModel
+@model E_Shop.Pages.User.IndexModel
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
@@ -23,6 +24,9 @@
                 @Html.DisplayNameFor(model => model.Users[0].RegisterDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Users[0].Wallet)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Users[0].IsAdmin)
             </th>
             <th></th>
@@ -39,6 +43,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegisterDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wallet)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsAdmin)

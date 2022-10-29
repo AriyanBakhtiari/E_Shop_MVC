@@ -1,0 +1,6 @@
+﻿@using E_Shop.Repository
+@inject IOrderRepository OrderRepository
+
+@OrderRepository.OrderCount(User.Identity.Name)
+
+

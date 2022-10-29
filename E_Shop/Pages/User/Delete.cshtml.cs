@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using E_Shop.Data;
 using E_Shop.Models;
 
-namespace E_Shop.Pages.Admin.ManageUsers
+namespace E_Shop.Pages.User
 {
     public class DeleteModel : PageModel
     {

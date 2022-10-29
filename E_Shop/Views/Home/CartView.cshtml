@@ -4,42 +4,42 @@
 }
 
 
-@if(Model != null)
+@if (Model != null)
 {
-        <table class="table table-striped">
-    <thead class=" thead-dark">
-        <tr>
-            <th>محصول</th>
-            <th>تعداد</th>
-            <th>قیمت</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.OrderDatail)
-        {
+    <table class="table table-striped">
+        <thead class=" thead-dark">
             <tr>
-                <td>@item.Product.Name</td>
-                <td>@item.Count</td>
-                <td>@(item.Price * item.Count)</td>
-                <td>
-                    <a asp-action="DeleteCart" asp-controller="home"  asp-route-OrderDetailId="@item.DetailId">حذف</a>
-                </td>
+                <th>محصول</th>
+                <th>تعداد</th>
+                <th>قیمت</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDatail)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Count</td>
+                    <td>@(item.Price * item.Count)</td>
+                    <td>
+                        <a asp-action="DeleteCart" asp-controller="home" asp-route-OrderDetailId="@item.DetailId">حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
 
 
 
-</table>
+    </table>
 
-<h5>جمع کل : @Model.OrderDatail.Sum(s=> s.Count * s.Price)</h5>
+    <h5>جمع کل : @Model.OrderDatail.Sum(s=> s.Count * s.Price)</h5>
 
 }
 else
 {
 
-<div class=" alert-danger"> سبد خرید خالی است</div> 
+    <div class=" alert-danger"> سبد خرید خالی است</div>
 }
 
 

@@ -2,12 +2,14 @@
 
 
 
+
 <div class="col-4">
-    <div class="card">
-        <img src="/Images/@(Model.Id).jpg" height="170" width="170" class="card-img-top img-thumbnail" />
-        <div class="card-body">
-            <h5 class="card-title">@Model.Name</h5>
-            <a asp-action="Details" asp-controller="Home" asp-route-id="@Model.Id">جزییات محصول</a>
+        <div class="card border-dark mb-3 card text-center" style="width: 17rem; height: 25rem;">
+            <img src="/Images/@(Model.Id).jpg" height="250" width="170" class="card-img-top" />
+            <div class="card-body">
+                <h6 class="card-title">@Model.Name</h6>
+                <p class="card-text"><span class="badge badge-light">@Model.Item.Price.ToString("N0") تومان </span> </p>
+                <a asp-action="Details" asp-controller="Home" asp-route-id="@Model.Id" class="btn btn-primary">جزییات محصول</a>
+            </div>
         </div>
-    </div>
 </div>

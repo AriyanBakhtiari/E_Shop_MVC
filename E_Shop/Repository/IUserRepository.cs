@@ -2,6 +2,8 @@
 using E_Shop.Data;
 using System;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks.Dataflow;
 
 namespace E_Shop.Repository
 {
@@ -9,6 +11,7 @@ namespace E_Shop.Repository
     {
         bool IsEmailValids(string email);
         void AddUser(Users user);
+        double GetWalletUser(string email );
 
         Users GetUser(string email , string password);
     }
@@ -37,6 +40,11 @@ namespace E_Shop.Repository
         {
             return _context.Users
                 .SingleOrDefault(w=> w.Email == email && w.Password == password);
+        }
+
+        public double GetWalletUser(string email)
+        {
+            return _context.Users.SingleOrDefault(w => w.Email == email).Wallet;
         }
     }
 }

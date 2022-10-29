@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using E_Shop.Data;
 using E_Shop.Models;
 
-namespace E_Shop.Pages.Admin.ManageUsers
+namespace E_Shop.Pages.User
 {
     public class CreateModel : PageModel
     {
@@ -27,8 +27,7 @@ namespace E_Shop.Pages.Admin.ManageUsers
         [BindProperty]
         public Users Users { get; set; }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

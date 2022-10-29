@@ -43,6 +43,7 @@ namespace E_Shop
             #region IOC(Injection Of Control)
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             #endregion
 
@@ -76,7 +77,6 @@ namespace E_Shop
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
             app.UseAuthorization();
 
             app.Use(async (context, next) =>

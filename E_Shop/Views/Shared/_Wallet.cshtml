@@ -1,0 +1,10 @@
+﻿@using E_Shop.Repository
+@inject IUserRepository userRepository
+
+
+<li>
+@*<span class="badge badge-success">کیف پول : @userRepository.GetWalletUser(@User.Identity.Name)</span>*@
+@*<a href="#" class="badge badge-dark"></a>*@
+    <button class="btn btn-sm btn-outline-secondary" type="button">کیف پول : @userRepository.GetWalletUser(@User.Identity.Name).ToString("N0") تومان</button>
+
+</li>

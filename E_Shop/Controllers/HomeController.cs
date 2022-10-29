@@ -28,6 +28,7 @@ namespace E_Shop.Controllers
         public IActionResult Index()
         {
             var product = _context.Products
+                .Include(i => i.Item)
                 .ToList();
             return View(product);
         }

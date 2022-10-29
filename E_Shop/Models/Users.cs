@@ -16,6 +16,7 @@ namespace E_Shop.Models
         public string Password { get; set; }
         [Required]
         public DateTime RegisterDate { get; set; }
+        public double Wallet { get; set; }
         public bool IsAdmin { get; set; }
 
 

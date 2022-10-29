@@ -4,14 +4,16 @@ using E_Shop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Shop.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    partial class EShopContextModelSnapshot : ModelSnapshot
+    [Migration("20221029084927_UpdateUser")]
+    partial class UpdateUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,9 +325,6 @@ namespace E_Shop.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Wallet")
-                        .HasColumnType("float");
-
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
@@ -337,8 +336,7 @@ namespace E_Shop.Migrations
                             Email = "admin@admin.com",
                             IsAdmin = true,
                             Password = "admin",
-                            RegisterDate = new DateTime(2022, 10, 29, 13, 31, 32, 457, DateTimeKind.Local).AddTicks(9944),
-                            Wallet = 10000000.0
+                            RegisterDate = new DateTime(2022, 10, 29, 12, 19, 27, 419, DateTimeKind.Local).AddTicks(5174)
                         });
                 });
 
