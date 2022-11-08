@@ -28,7 +28,7 @@
 
                             <a class="nav-link " asp-area="" asp-controller="Home" asp-action="CartView">
                                     سبد خرید <span class="badge badge-light">
-                                        <partial name="_Ordersbutton" />
+                                        <partial name="_Ordersbutton"/>
                                     </span>
                                 </a>
                         </li>
@@ -38,6 +38,9 @@
                         <partial name="_Category" />
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="ShowUserInfo">حساب کاربری </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="account" asp-action="Logout">خروج از حساب </a>
                             </li>

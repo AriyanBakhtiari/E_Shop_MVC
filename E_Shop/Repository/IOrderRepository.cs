@@ -27,7 +27,11 @@ namespace E_Shop.Repository
             {
                 var UserOrder = _context.Orders.Include(i => i.OrderDatail)
                .SingleOrDefault(i => i.UserId == user.UserId && i.IsFinaly == false);
+                if(UserOrder != null)
+                {
                 return UserOrder.OrderDatail.Count();
+                }
+            return 0;
             }
             return 0;
            

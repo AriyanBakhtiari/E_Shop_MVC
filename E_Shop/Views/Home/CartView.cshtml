@@ -32,8 +32,27 @@
 
 
     </table>
+    <div class="row">
+        <div class="col-md-3">
+            <h5>جمع کل : @Model.OrderDatail.Sum(s=> s.Count * s.Price)</h5>
+        </div>
+        <div class="col-md-7">
+        </div>
+        <div class="col-md-2">
+            <a type="text/asp" class="btn btn-secondary btn-lg btn-block" asp-action="FinalizePurchase" asp-controller="Home" asp-route-OrderID="@Model.OrderId">خرید</a>
+        </div>
+    </div>
 
-    <h5>جمع کل : @Model.OrderDatail.Sum(s=> s.Count * s.Price)</h5>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+
+
 
 }
 else

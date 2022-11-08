@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Shop.Controllers
 {
@@ -38,18 +39,13 @@ namespace E_Shop.Controllers
             {
                 Email = registermodel.Email.ToLower(),
                 Password = registermodel.Password,
-                RegisterDate = DateTime.Now,
+                RegisterDate = DateTime.Now.Date,
                 IsAdmin = false
             };
             _userrepository.AddUser(user);
             return View("SuccessRegister", registermodel);
 
         }
-
-
-
-
-
         public IActionResult Login()
         {
             return View();
@@ -86,12 +82,24 @@ namespace E_Shop.Controllers
 
             return Redirect("/");
         }
-
-
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/");
         }
+
+        public IActionResult ShowUserInfo()
+        {
+            var user = _userrepository.GetUser(User.Identity.Name);
+            return View(user);
+
+        }
+        public IActionResult EditUser()
+        {
+            var user = _userrepository.GetUser(User.Identity.Name);
+            return View(user);
+
+        }
+
     }
 }

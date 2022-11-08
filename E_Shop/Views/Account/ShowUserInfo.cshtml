@@ -1,0 +1,35 @@
+﻿@model E_Shop.Models.Users
+
+@{
+    ViewData["Title"] = "اطلاعات حساب کاربری";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>اطلاعات حساب کاربری</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RegisterDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RegisterDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Wallet)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Wallet)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="EditUser">ویرایش اطلاعات کاربری</a>
+</div>

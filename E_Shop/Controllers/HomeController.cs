@@ -8,8 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace E_Shop.Controllers
 {
@@ -130,6 +132,25 @@ namespace E_Shop.Controllers
                 .ThenInclude(o => o.Product).FirstOrDefault();
 
             return View(order);
+        }
+        [Authorize]
+        public IActionResult FinalizePurchase()
+        {
+            var user = _context.Users.SingleOrDefault(o=> o.Email == User.Identity.Name);
+            var order = _context.Orders.Where(o => o.UserId == user.UserId && !o.IsFinaly)
+                .Include(o => o.OrderDatail)
+                .ThenInclude(o => o.Product).FirstOrDefault();
+            var TotalPrice = order.OrderDatail.Sum(s => s.Count * s.Price);
+            if(user.Wallet < (double)TotalPrice) {
+                ViewBag.Message = 1;
+                return View();
+            }
+            order.IsFinaly = true;
+            _context.SaveChanges();
+            user.Wallet = user.Wallet - (double)TotalPrice;
+            _context.SaveChanges();
+            ViewBag.Message = 2 ;
+            return View();
         }
         [Authorize]
         public IActionResult DeleteCart(int OrderDetailId)

@@ -2,8 +2,7 @@
 using E_Shop.Data;
 using System;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks.Dataflow;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Shop.Repository
 {
@@ -11,9 +10,13 @@ namespace E_Shop.Repository
     {
         bool IsEmailValids(string email);
         void AddUser(Users user);
-        double GetWalletUser(string email );
+        void EditUser(Users user);
+        double GetWalletUser(string email);
 
-        Users GetUser(string email , string password);
+        Users GetUser(string email, string password);
+        Users GetUser(string email);
+
+
     }
 
 
@@ -39,12 +42,26 @@ namespace E_Shop.Repository
         public Users GetUser(string email, string password)
         {
             return _context.Users
-                .SingleOrDefault(w=> w.Email == email && w.Password == password);
+                .SingleOrDefault(w => w.Email == email && w.Password == password);
         }
 
         public double GetWalletUser(string email)
         {
             return _context.Users.SingleOrDefault(w => w.Email == email).Wallet;
+        }
+
+        public Users GetUser(string email)
+        {
+            return _context.Users
+                .SingleOrDefault(w => w.Email == email);
+        }
+
+        public void EditUser(Users user)
+        {
+            _context.Attach(user).State = EntityState.Modified;
+
+            _context.SaveChangesAsync();
+
         }
     }
 }

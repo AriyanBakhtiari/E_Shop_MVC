@@ -159,7 +159,7 @@ namespace E_Shop.Data
                 IsAdmin = true,
                 Password = "admin",
                 RegisterDate = System.DateTime.Now,
-                Wallet = 10000000 , 
+                Wallet = 1000000 , 
             }) ;
             #endregion
 
