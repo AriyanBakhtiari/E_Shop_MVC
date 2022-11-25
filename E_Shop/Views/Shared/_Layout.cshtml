@@ -1,97 +1,131 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+<style>
+    .wallet {
+    position: absolute;
+    left: 50px;
+    margin-left: 30px;
+    color: white;
+    }
+    .wallet .dropdown-menu {
+        right: auto !important;
+    }
+    .accountInfoIcon{
+    color: white;
+    }
+    .AccountInfo{
+    position: absolute;
+    left: 0px;
+    margin-left: 85px;
+    }
+    .AccountInfo .dropdown-menu {
+            right: auto !important;
+        }
+    .search1{
+    position: absolute; left: 98px;
+    }
+    .footer{
+    margin-top: 20px;
+    }
+    .orderList{
+    margin-left: 30px;
+    position: absolute;
+     left: 0px;
+     top: 10px;
+     }
+     .ordercount{
+       left: 29px;
+       position: absolute
+       }
+</style>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"]</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
-    <link rel="stylesheet" href="/lib/bootstrap4/css/bootstrap-rtl.css" />
-    <link href="https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/font-face.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="css/Custome.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/lib/bootstrap4/css/bootstrap-rtl.css"/>
+    <link href="https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/font-face.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     @*<link rel="stylesheet" href="~/css/site.css" />*@
 </head>
 <body class="rtl" style="font-family : sahel,sans-serif;">
-    <header class="sticky-top ">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  navbar-dark bg-dark  border-bottom box-shadow mb-3 ">
-            <div class="container-fluid ">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ژاتیس شاپ</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+<header class="sticky-top ">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm  navbar-dark bg-dark  border-bottom box-shadow mb-3 ">
+        <div class="container-fluid ">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ژاتیس شاپ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">درباره ما</a>
+                    </li>
+                    <partial name="_Category"/>
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+                            <a class="nav-link" asp-area="" asp-controller="account" asp-action="ShowUserInfo">حساب کاربری </a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item"> *@
+                        @*     <partial name="_Wallet"/> *@
+                        @* </li> *@
+                        
+                    }
+                    else
+                    {
+                        
+                    }
 
-                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="CartView">
-                                سبد خرید <span class="badge badge-light">
-                                    <partial name="_Ordersbutton" />
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">درباره ما</a>
-                        </li>
-                        <partial name="_Category" />
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="ShowUserInfo">حساب کاربری </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="Logout">خروج از حساب </a>
-                            </li>
-                            <li class="nav-item">
-                                <partial name="_Wallet" />
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="register">ثبت نام</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="account" asp-action="Login">ورود</a>
-                            </li>
+                    @*       <li class="search1"> *@
+                    @*           <div class="input-group mb-3"> *@
+                    @*               <div class="input-group-prepend"> *@
+                    @*                   <i class="input-group-text fa fa-search" id="basic-addon1"></i> *@
+                    @*               </div> *@
+                    @*               <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+                    @*           </div> *@
+                    @* *@
+                    @*       </li> *@
 
-                        }
+                    <li class="nav-item">
+                        <partial name="_AccountInfo"/>
+                    </li>
 
-                        <li class="search">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <i class="input-group-text fa fa-search" id="basic-addon1"></i>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
+                    <li class="nav-item">
 
-                        </li>
-                    </ul>
+                        <a class="nav-link active orderList  fa fa-shopping-cart" asp-area="" asp-controller="Home" asp-action="CartView">
+                            <span class="badge badge ordercount">
+                                <partial name="_Ordersbutton"/>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
 
-                </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                @RenderBody()
-            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @RenderBody()
         </div>
     </div>
+</div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - E_Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+<footer class="border-top footer text-muted" style="">
+
+    <div class="container">
+        &copy; 2022 - E_Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@RenderSection("Scripts", required: false)
 </body>
 </html>

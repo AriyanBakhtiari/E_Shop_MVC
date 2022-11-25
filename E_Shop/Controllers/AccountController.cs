@@ -17,12 +17,10 @@ namespace E_Shop.Controllers
         {
             _userrepository = userrepository;
         }
-
         public IActionResult Register()
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult Register(RegisterViewModel registermodel)
         {
@@ -30,6 +28,7 @@ namespace E_Shop.Controllers
             {
                 return View(registermodel);
             }
+
             if (_userrepository.IsEmailValids(registermodel.Email.ToLower()))
             {
                 ModelState.AddModelError("Email", "ایمیل وارد شده قبلا در سایت ثبت نام کرده است.");
@@ -44,7 +43,6 @@ namespace E_Shop.Controllers
             };
             _userrepository.AddUser(user);
             return View("SuccessRegister", registermodel);
-
         }
         public IActionResult Login()
         {
@@ -57,6 +55,7 @@ namespace E_Shop.Controllers
             {
                 return View(loginViewModel);
             }
+
             var user = _userrepository.GetUser(loginViewModel.Email, loginViewModel.Password);
             if (user == null)
             {
@@ -87,19 +86,15 @@ namespace E_Shop.Controllers
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/");
         }
-
         public IActionResult ShowUserInfo()
         {
             var user = _userrepository.GetUser(User.Identity.Name);
             return View(user);
-
         }
         public IActionResult EditUser()
         {
             var user = _userrepository.GetUser(User.Identity.Name);
             return View(user);
-
         }
-
     }
 }

@@ -1,0 +1,36 @@
+@using E_Shop.Repository
+@inject IUserRepository userRepository
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    var user = userRepository.GetUser(@User.Identity?.Name);
+    <li class="AccountInfo">
+        <a class="btn btn dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user accountInfoIcon"></i>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">نام کاربری : @user.Email</a>
+            <a class="dropdown-item" href="#">کیف پول : @user.Wallet</a>
+            <a class="dropdown-item" >
+                <a asp-area="" asp-controller="account" asp-action="Logout" style="margin-right: 20px;">
+                    <button class="btn btn-outline-danger" type="button">
+                        خروج
+                    </button>
+                </a>
+            </a>
+        </div>
+    </li>
+}
+else
+{
+    <li class="AccountInfo">
+        <a class="btn btn dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user accountInfoIcon"></i>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-area="" asp-controller="account" asp-action="register">ثبت نام</a>
+            <a class="dropdown-item" asp-area="" asp-controller="account" asp-action="Login">ورود</a>
+        </div>
+    </li>
+}

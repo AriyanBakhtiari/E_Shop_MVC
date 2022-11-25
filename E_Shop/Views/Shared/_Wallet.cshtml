@@ -1,17 +1,14 @@
-﻿
-@using E_Shop.Repository
+﻿@using E_Shop.Repository
 @inject IUserRepository userRepository
 
 
-<li class="wallet dropdown">
+<li class="wallet">
     @*<span class="badge badge-success">کیف پول : @userRepository.GetWalletUser(@User.Identity.Name)</span>*@
     @*<a href="#" class="badge badge-dark"></a>*@
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-wallet"></i>
+    <a class="btn" href="#" role="button" aria-expanded="false">
+        <i class="fas fa-wallet" style="color: white"></i>
+        <a>@userRepository.GetWalletUser(@User.Identity.Name).ToString("N0") تومان</a>
     </a>
-
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">کیف پول</a>
-        <a class="dropdown-item" href="#">@userRepository.GetWalletUser(@User.Identity.Name).ToString("N0") تومان</a>
     </div>
 </li>

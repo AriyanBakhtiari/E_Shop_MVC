@@ -7,13 +7,11 @@ namespace E_Shop.Controllers
 {
     public class ProductController : Controller
     {
-        private EShopContext _context;
-
+        private readonly EShopContext _context;
         public ProductController(EShopContext context)
         {
             _context = context;
         }
-
         [Route("Category/{id}/{name}")]
         public IActionResult ProductCategory(int id , string name)
         {

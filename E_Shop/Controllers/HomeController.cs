@@ -20,13 +20,11 @@ namespace E_Shop.Controllers
         private EShopContext _context;
         private readonly ILogger<HomeController> _logger;
         
-
         public HomeController(ILogger<HomeController> logger, EShopContext context)
         {
             _logger = logger;
             _context = context;
         }
-
         public IActionResult Index()
         {
             var product = _context.Products
@@ -34,12 +32,10 @@ namespace E_Shop.Controllers
                 .ToList();
             return View(product);
         }
-
         public IActionResult Privacy()
         {
             return View();
         }
-
         public IActionResult Details(int id)
         {
             var products = _context.Products
@@ -66,7 +62,6 @@ namespace E_Shop.Controllers
 
 
         }
-
         [Authorize]
         public IActionResult AddToCart(int itemId)
         {
@@ -153,29 +148,27 @@ namespace E_Shop.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult DeleteCart(int OrderDetailId)
+        public IActionResult DeleteCart(int orderDetailId)
         {
-            var orderdetail = _context.OrderDetails.Find(OrderDetailId);
-            if(orderdetail.Count == 1 )
+            var orderDetail = _context.OrderDetails.Find(orderDetailId);
+            if(orderDetail != null && orderDetail.Count == 1 )
             {
-                _context.OrderDetails.Remove(orderdetail);
+                _context.OrderDetails.Remove(orderDetail);
             }
             else
             {
-                orderdetail.Count -= 1;
+                orderDetail.Count -= 1;
             }
             
             _context.SaveChanges();
             return RedirectToAction("CartView");
         }
 
-
         [Route("/ContactUs")]
         public IActionResult ContactUs()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

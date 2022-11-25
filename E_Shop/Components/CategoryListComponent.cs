@@ -16,9 +16,8 @@ namespace E_Shop.Components
             _groupRepository = groupRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
-
             return View("/Views/Component/CategoryListComponentView.cshtml", _groupRepository.ShowCategoryView());
         }
     }

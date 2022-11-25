@@ -23,18 +23,15 @@ namespace E_Shop.Repository
         public int OrderCount(string email)
         {
             var user = _context.Users.SingleOrDefault(e => e.Email == email);
-            if (user != null)
-            {
-                var UserOrder = _context.Orders.Include(i => i.OrderDatail)
-               .SingleOrDefault(i => i.UserId == user.UserId && i.IsFinaly == false);
-                if(UserOrder != null)
-                {
-                return UserOrder.OrderDatail.Count();
-                }
-            return 0;
-            }
-            return 0;
-           
+            if (user == null) return 0;
+            
+            var UserOrder = _context.Orders.Include(i => i.OrderDatail)
+                .SingleOrDefault(i => i.UserId == user.UserId && i.IsFinaly == false);
+                
+            if (UserOrder == null) return 0;
+                
+            return UserOrder.OrderDatail.Sum(order => order.Count);
+
         }
     }
 }
