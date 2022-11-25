@@ -35,7 +35,9 @@ namespace E_Shop
             #region Db Context
             services.AddDbContext<EShopContext>(options =>
             {
-                options.UseSqlServer("Data Source =.; Initial Catalog = EShopDatabse; Integrated Security = true");
+                //options.UseSqlServer("Data Source =.; Initial Catalog = EShopDatabse; Integrated Security = true");
+                options.UseSqlServer("Server=localhost;Database=EShop;User=sa;Password=Docker@123;");
+
             });
 
             #endregion

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Shop.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    [Migration("20221108062727_Initial")]
-    partial class Initial
+    [Migration("20221125095137_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -348,7 +348,7 @@ namespace E_Shop.Migrations
                             Email = "admin@admin.com",
                             IsAdmin = true,
                             Password = "admin",
-                            RegisterDate = new DateTime(2022, 11, 8, 9, 57, 27, 41, DateTimeKind.Local).AddTicks(6617),
+                            RegisterDate = new DateTime(2022, 11, 25, 13, 21, 37, 213, DateTimeKind.Local).AddTicks(1000),
                             Wallet = 1000000.0
                         });
                 });

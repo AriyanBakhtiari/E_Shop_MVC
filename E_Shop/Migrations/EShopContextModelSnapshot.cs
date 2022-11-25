@@ -346,7 +346,7 @@ namespace E_Shop.Migrations
                             Email = "admin@admin.com",
                             IsAdmin = true,
                             Password = "admin",
-                            RegisterDate = new DateTime(2022, 11, 8, 9, 57, 27, 41, DateTimeKind.Local).AddTicks(6617),
+                            RegisterDate = new DateTime(2022, 11, 25, 13, 21, 37, 213, DateTimeKind.Local).AddTicks(1000),
                             Wallet = 1000000.0
                         });
                 });
